@@ -13,29 +13,33 @@
 <body id="section-home">
     <div id="djDebugBlock">
     	<div id="djDebugToolbar">
-    		<ul id="djDebugPanelList">
-    			<li><a title="Version" href="#">Version</a></li>
-    			<li><a title="SQL Queries" href="#">SQL Queries</a></li>
-    			<li><a title="Timer" href="#">Timer</a></li>
-    		</ul>
     		<div id="djDebugVersionPanel" class="panelContent">
-    			<h1>Version</h1>
-    			1.0-beta_1-SVN-unknown
+    		    <a title="Version" href="#" class="version panelToggle">Version</a>
+    		    <div class="panelContentView">
+    		      	<h1>Version</h1>
+        			1.0-beta_1-SVN-unknown
+    		    </div>
     		</div>
     		<div id="djDebugSQLQueriesPanel" class="panelContent">
-    			<h1>SQL Queries</h1>
-    			<dl>
-    				<dt>0.001</dt>
-    				<dd>SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = 7ef2caa0bfa0927224695ca6e6389e10  AND `django_session`.`expire_date` > 2008-08-30 16:30:00 )</dd>
-    				<dt>0.001</dt>
-    				<dd>SELECT `auth_user`.`id`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`password`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`is_superuser`, `auth_user`.`last_login`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 2 </dd>
-    				<dt>0.000</dt>
-    				<dd>SELECT `auth_message`.`id`, `auth_message`.`user_id`, `auth_message`.`message` FROM `auth_message` WHERE `auth_message`.`user_id` = 2 </dd>
-    			</dl>
+    		    <a title="SQL Queries" href="#" class="queries panelToggle">SQL Queries</a>
+    		    <div class="panelContentView">
+        			<h1>SQL Queries</h1>
+        			<dl>
+        				<dt>0.001</dt>
+        				<dd>SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`session_key` = 7ef2caa0bfa0927224695ca6e6389e10  AND `django_session`.`expire_date` > 2008-08-30 16:30:00 )</dd>
+        				<dt>0.001</dt>
+        				<dd>SELECT `auth_user`.`id`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`password`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`is_superuser`, `auth_user`.`last_login`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 2 </dd>
+        				<dt>0.000</dt>
+        				<dd>SELECT `auth_message`.`id`, `auth_message`.`user_id`, `auth_message`.`message` FROM `auth_message` WHERE `auth_message`.`user_id` = 2 </dd>
+        			</dl>
+    			</div>
     		</div>
     		<div id="djDebugTimerPanel" class="panelContent">
-    			<h1>Timer</h1>
-    			135.59 ms
+    		    <a title="Timer" href="#" class="timer panelToggle">Timer</a>
+    		    <div class="panelContentView">
+        			<h1>Timer</h1>
+        			135.59 ms
+    			</div>
     		</div>
     	</div>
     	<a href="" title="debug" id="debugButton">DEBUG</li>
