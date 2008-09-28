@@ -1,21 +1,37 @@
 """
 The main DebugToolbar class that loads and renders the Toolbar.
 """
+from django.template.loader import render_to_string
+
 class DebugToolbar(object):
 
-    def __init__(self):
+    def __init__(self, request):
+        self.request = request
         self.panels = []
-        self.panel_list = []
-        self.content_list = []
-    
+        # Override this tuple by copying to settings.py as `DEBUG_TOOLBAR_PANELS`
+        self.default_panels = (
+            'debug_toolbar.panels.version.VersionDebugPanel',
+            'debug_toolbar.panels.timer.TimerDebugPanel',
+            'debug_toolbar.panels.headers.HeaderDebugPanel',
+            'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+            'debug_toolbar.panels.sql.SQLDebugPanel',
+            'debug_toolbar.panels.cache.CacheDebugPanel',
+            'debug_toolbar.panels.template.TemplateDebugPanel',
+        )
+        self.load_panels()
+
     def load_panels(self):
         """
-        Populate debug panel lists from settings.DEBUG_TOOLBAR_PANELS.
+        Populate debug panels
         """
         from django.conf import settings
         from django.core import exceptions
 
-        for panel_path in settings.DEBUG_TOOLBAR_PANELS:
+        # Check if settings has a DEBUG_TOOLBAR_PANELS, otherwise use default
+        if hasattr(settings, 'DEBUG_TOOLBAR_PANELS'):
+            self.default_panels = settings.DEBUG_TOOLBAR_PANELS
+
+        for panel_path in self.default_panels:
             try:
                 dot = panel_path.rindex('.')
             except ValueError:
@@ -33,41 +49,16 @@ class DebugToolbar(object):
             try:
                 panel_instance = panel_class()
             except:
-                continue # Some problem loading panel
+                print panel_class
+                raise # Bubble up problem loading panel
 
             self.panels.append(panel_instance)
-
-    def render_panels(self):
-        """
-        Renders each panel.
-        """
-        for panel in self.panels:
-            div_id = 'djDebug%sPanel' % (panel.title().replace(' ', ''))
-            self.panel_list.append('<li><a title="%(title)s" href="%(url)s">%(title)s</a></li>' % ({
-                'title': panel.title(),
-                'url': panel.url() or '#',
-            }))
-            self.content_list.append('<div id="%(div_id)s" class="panelContent"><h1>%(title)s</h1>%(content)s</div>' % ({
-                'div_id': div_id,
-                'title': panel.title(),
-                'content': panel.content(),
-            }))
 
     def render_toolbar(self):
         """
         Renders the overall Toolbar with panels inside.
         """
-        self.render_panels()
-        template = """
-            <div id="djDebugToolbar">
-                <ul id="djDebugPanelList">
-                    %(panels)s
-                </ul>
-                %(contents)s
-            </div>
-        """
-        context = {
-            'panels': ''.join(self.panel_list),
-            'contents': ''.join(self.content_list),
-        }
-        return template % context
+        return render_to_string('debug_toolbar/base.html', {
+            'panels': self.panels,
+            'BASE_URL': self.request.META.get('SCRIPT_NAME', '')
+        })

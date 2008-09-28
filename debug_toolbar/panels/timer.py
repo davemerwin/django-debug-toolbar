@@ -3,16 +3,21 @@ from debug_toolbar.panels import DebugPanel
 
 class TimerDebugPanel(DebugPanel):
     """
-    Panel that displays the time a response took.
+    Panel that displays the time a response took in milliseconds.
     """
-    def __init__(self):
+    name = 'Timer'
+
+    def process_request(self, request):
         self._start_time = time.time()
 
+    def process_response(self, request, response):
+        self.total_time = (time.time() - self._start_time) * 1000
+
     def title(self):
-        return 'Timer'
+        return 'Time: %0.2fms' % (self.total_time)
 
     def url(self):
         return ''
 
     def content(self):
-        return "%0.2f ms" % ((time.time() - self._start_time) * 1000)
+        return ''
