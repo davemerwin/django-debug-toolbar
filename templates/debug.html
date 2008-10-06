@@ -3,12 +3,10 @@
 <head>
 	<title>Tastybrew.com</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" type="text/css" href="/media/css/site.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="../media/css/site.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../media/css/print.css">
 	<script type="text/javascript" src="../media/js/jquery-1.2.6.js"></script>
 	<script type="text/javascript" src="../media/js/djDebug.settings.js"></script>
-	<style type="text/css" media="screen">
-	   body {padding:0; margin:0;}
-	</style>
 </head>
 <body id="section-home">
     <div id="djDebugBlock">
@@ -46,39 +44,42 @@
 	</div>
 	<div id="header">
 		<div class="container_12">
-			<div id="logo">
-				<a href="/"><img width="" height="" title="Home" alt="Tastybrew" src="/media/img/logo.png"></a>
+		    <div id="masthead">
+    			<div id="logo">
+    				<a href="/"><img width="" height="" title="Home" alt="Tastybrew" src="../media/img/logo.png"></a>
+    			</div>
+    			<ul id="nav-acct">
+    				<li class="jump"><a href="#content">Skip to Content</a></li>
+    				<li class="jump"><a href="#search">Skip to Search</a></li>
+    				<li><a href="">Account</a></li>
+    				<li><a href="">About</a></li>
+    				<li class="last"><a href="/logout/">Sign out</a></li>
+    			</ul>
+    			<div id="searchBlock">
+    			 	<form action="/search/" id="search" method="post" name="search">
+        				<fieldset>
+        					<a href="/search/">Advanced Search</a>
+        					<label>Search for:</label>
+        					<select name="type">
+        						<option title="helper text here" value="forum">Forum</option>
+        						<option title="helper text here" value="recipe">Recipe</option>
+        						<option title="helper text here" value="people">People</option>
+        					</select>
+        					<input type="text" name="q" class="q" value="">
+        					<input type="submit" name="search" class="submit" value="Search">
+        				</fieldset>
+        			</form>
+    			</div>
 			</div>
-			<ul id="nav-acct">
-				<li class="jump"><a href="#content">Skip to Content</a></li>
-				<li class="jump"><a href="#search">Skip to Search</a></li>
-				<li><a href="">Account</a></li>
-				<li><a href="">About</a></li>
-				<li class="last"><a href="/logout/">Sign out</a></li>
-			</ul>
-			<form action="/search/" id="search" method="post" name="search">
-				<fieldset>
-					<legend>Find Forums, Recipes, or People</legend>
-					<a href="/search/">Advanced Search</a>
-					<label>Search for:</label>
-					<select name="type">
-						<option title="helper text here" value="forum">Forum</option>
-						<option title="helper text here" value="recipe">Recipe</option>
-						<option title="helper text here" value="people">People</option>
-					</select>
-					<input type="text" name="q" class="q" value="">
-					<input type="submit" name="search" class="submit" value="Search">
-				</fieldset>
-			</form>
 		</div>
 	</div>
-	<div id="navbar">
-		<div class="container_12">
-			<ul id="nav">
+	<div id="navbar" class="clearfix">
+	    <div class="container_12">
+	       	<ul id="nav">
 				<li id="nav-forum"><a href="/forum/"><span>Forum</span></a></li>
 				<li id="nav-recipes"><a href="/recipes/" class="recipes">Recipes</a></li>
 			</ul>
-		</div>
+	    </div>
 	</div>
 	<div id="content">
 		<div class="container_12">
