@@ -8,15 +8,20 @@ class DebugToolbar(object):
     def __init__(self, request):
         self.request = request
         self.panels = []
+        self.config = {
+            'INTERCEPT_REDIRECTS': True,
+        }
         # Override this tuple by copying to settings.py as `DEBUG_TOOLBAR_PANELS`
         self.default_panels = (
             'debug_toolbar.panels.version.VersionDebugPanel',
             'debug_toolbar.panels.timer.TimerDebugPanel',
+            'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
             'debug_toolbar.panels.headers.HeaderDebugPanel',
             'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+            'debug_toolbar.panels.template.TemplateDebugPanel',
             'debug_toolbar.panels.sql.SQLDebugPanel',
             'debug_toolbar.panels.cache.CacheDebugPanel',
-            'debug_toolbar.panels.template.TemplateDebugPanel',
+            'debug_toolbar.panels.logger.LoggingPanel',
         )
         self.load_panels()
 
@@ -30,6 +35,9 @@ class DebugToolbar(object):
         # Check if settings has a DEBUG_TOOLBAR_PANELS, otherwise use default
         if hasattr(settings, 'DEBUG_TOOLBAR_PANELS'):
             self.default_panels = settings.DEBUG_TOOLBAR_PANELS
+        # Check if settings has a DEBUG_TOOLBAR_CONFIG and updated config
+        if hasattr(settings, 'DEBUG_TOOLBAR_CONFIG'):
+            self.config.update(settings.DEBUG_TOOLBAR_CONFIG)
 
         for panel_path in self.default_panels:
             try:
@@ -60,5 +68,5 @@ class DebugToolbar(object):
         """
         return render_to_string('debug_toolbar/base.html', {
             'panels': self.panels,
-            'BASE_URL': self.request.META.get('SCRIPT_NAME', '')
+            'BASE_URL': self.request.META.get('SCRIPT_NAME', ''),
         })
